@@ -31,6 +31,8 @@ class Carousel extends AbstractBlockLayout
             'autoSlideDuration' => 0,
 			'loop' => 'true',
             'fade' => 'false',
+            'customCaption' => '',
+            'linkToResource' => 'false',
         ];
 
         $data = $block ? $block->data() + $defaults : $defaults;
@@ -59,6 +61,14 @@ class Carousel extends AbstractBlockLayout
 			]
 		]);
 
+        $advancedForm->add([
+            'name' => 'o:block[__blockIndex__][o:data][carouselCaption]',
+            'type' => Element\Textarea::class,
+            'attributes' => [
+                'class' => 'block-html full wysiwyg',
+            ],
+        ]);
+
 		$advancedForm->add([
 			'name' => 'o:block[__blockIndex__][o:data][showCaption]',
 			'type' => Element\Checkbox::class,
@@ -68,6 +78,16 @@ class Carousel extends AbstractBlockLayout
 				'unchecked_value' => 'false',
 			]
 		]);
+
+        $advancedForm->add([
+            'name' => 'o:block[__blockIndex__][o:data][linkToResource]',
+            'type' => Element\Checkbox::class,
+            'options' => [
+                'label' => 'Link slides to resource', // @translate
+                'checked_value' => 'true',
+                'unchecked_value' => 'false',
+            ]
+        ]);
 
 		$advancedForm->add([
 			'name' => 'o:block[__blockIndex__][o:data][floatCaption]',
@@ -154,6 +174,7 @@ class Carousel extends AbstractBlockLayout
 			'o:block[__blockIndex__][o:data][perPage]' => $data['perPage'],
 		]);
 		$advancedForm->setData([
+			'o:block[__blockIndex__][o:data][carouselCaption]' => $data['carouselCaption'],
 			'o:block[__blockIndex__][o:data][showCaption]' => $data['showCaption'],
 			'o:block[__blockIndex__][o:data][floatCaption]' => $data['floatCaption'],
 			'o:block[__blockIndex__][o:data][slideCSSTextAlign]' => $data['slideCSSTextAlign'],
@@ -191,9 +212,11 @@ class Carousel extends AbstractBlockLayout
         return $view->partial('common/block-layout/item-carousel', [
             'attachments' => $attachments,
 			'carouselHeading' => $block->dataValue('carouselHeading'),
+			'carouselCaption' => $block->dataValue('carouselCaption'),
 			'perPage' => $block->dataValue('perPage'),
 			'thumbnailType' => $thumbnailType,
             'showTitleOption' => $showTitleOption,
+            'caption' => $block->dataValue('caption'),
 			'showCaption' => $block->dataValue('showCaption'),
 			'floatCaption' => $block->dataValue('floatCaption'),
 			'slideCSSTextAlign' => $block->dataValue('slideCSSTextAlign'),

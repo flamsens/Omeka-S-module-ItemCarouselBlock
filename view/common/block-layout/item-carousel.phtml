@@ -1,4 +1,12 @@
 <?php
+use Omeka\Api\Representation\SiteBlockAttachmentRepresentation;
+
+/**
+ * @var SiteBlockAttachmentRepresentation[] $attachments
+ */
+
+
+
 $this->headLink()->appendStylesheet($this->assetUrl('vendor/slick/slick.css', 'ItemCarouselBlock'));
 $this->headLink()->appendStylesheet($this->assetUrl('vendor/slick/slick-theme.css', 'ItemCarouselBlock'));
 $this->headLink()->appendStylesheet($this->assetUrl('css/item-carousel.css', 'ItemCarouselBlock'));
@@ -13,7 +21,7 @@ $this->headScript()->appendFile($this->assetUrl('vendor/slick/slick.min.js', 'It
 		foreach ($attachments as $attachment) {
 			$item = $attachment->item();
 			$media = $attachment->media() ?: $item->primaryMedia();
-			$caption = $this->showCaption == 'true' ? $attachment->caption() : '';
+			$caption = $this->customCaption ?: ( $this->showCaption == 'true' ? $attachment->caption() : '' );
 			$title = '';
 						
 			if ($this->showTitleOption == 'item_title') {
@@ -32,17 +40,23 @@ $this->headScript()->appendFile($this->assetUrl('vendor/slick/slick.min.js', 'It
 				$textDiv = sprintf('<div class="slide-text"><div class="title">%s</div><div class="caption">%s</div></div>', 
 				$title, $caption);
 			}
-			
+
 			if ($media) {
 				$slide = $this->thumbnail($media, $this->thumbnailType) . $textDiv;
 				echo $item->linkRaw($slide);
 			} else {
 				$slide = $textDiv;
 				echo $item->linkRaw($slide);
-			} 
+			}
 		}
 	?>
 	</div>
+
+    <?php if ( $this->carouselCaption ): ?>
+    <div class="carousel-caption">
+        <?= $this->carouselCaption ?>
+    </div>
+    <?php endif; ?>
 
 	<script>
 	$(document).ready(function() {
