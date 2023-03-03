@@ -31,7 +31,7 @@ class Carousel extends AbstractBlockLayout
             'autoSlideDuration' => 0,
 			'loop' => 'true',
             'fade' => 'false',
-            'customCaption' => '',
+            'carouselCaption' => '',
             'linkToResource' => 'false',
         ];
 
