@@ -176,6 +176,7 @@ class Carousel extends AbstractBlockLayout
 		$advancedForm->setData([
 			'o:block[__blockIndex__][o:data][carouselCaption]' => $data['carouselCaption'],
 			'o:block[__blockIndex__][o:data][showCaption]' => $data['showCaption'],
+			'o:block[__blockIndex__][o:data][linkToResource]' => $data['linkToResource'],
 			'o:block[__blockIndex__][o:data][floatCaption]' => $data['floatCaption'],
 			'o:block[__blockIndex__][o:data][slideCSSTextAlign]' => $data['slideCSSTextAlign'],
 			'o:block[__blockIndex__][o:data][SlideCSSStretch]' => $data['SlideCSSStretch'],
@@ -224,6 +225,7 @@ class Carousel extends AbstractBlockLayout
             'autoSlideDuration' => $block->dataValue('autoSlideDuration'),
 			'loop' => $block->dataValue('loop'),
             'fade' => $block->dataValue('fade'),
+            'linkToResource' => $block->dataValue('linkToResource')
 		]);
 	}
 }

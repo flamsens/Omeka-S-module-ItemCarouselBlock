@@ -42,12 +42,20 @@ $this->headScript()->appendFile($this->assetUrl('vendor/slick/slick.min.js', 'It
 			}
 
 			if ($media) {
-				$slide = $this->thumbnail($media, $this->thumbnailType) . $textDiv;
-				echo $item->linkRaw($slide);
+                if ( $media->hasOriginal() ) {
+                    $slide = "<img src=\"{$media->originalUrl()}\">" . $textDiv;
+                } else {
+                    $slide = $this->thumbnail($media, $this->thumbnailType) . $textDiv;
+                }
 			} else {
 				$slide = $textDiv;
-				echo $item->linkRaw($slide);
 			}
+
+            if ( $this->linkToResource == 'true' ) {
+                echo $item->linkRaw($slide);
+            } else {
+                echo '<div>'.$slide.'</div>';
+            }
 		}
 	?>
 	</div>
